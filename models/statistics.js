@@ -1,26 +1,26 @@
 module.exports = (Sequelize, sequelize) => {
     return sequelize.define('statistics', {
-        ID: {
+        id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        HardWins: {
+        hardWins: {
             type: Sequelize.INTEGER
         },
-        HardLoses: {
+        hardLoses: {
             type: Sequelize.INTEGER
         },
-        MediumWins: {
+        mediumWins: {
             type: Sequelize.INTEGER
         },
-        MediumLoses: {
+        mediumLoses: {
             type: Sequelize.INTEGER
         },
-        EasyWins: {
+        easyWins: {
             type: Sequelize.INTEGER
         },
-        EasyLoses: {
+        easyLoses: {
             type: Sequelize.INTEGER
         }
     });
