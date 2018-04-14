@@ -30,6 +30,7 @@ module.exports = (db) => {
 
     app.use('/users', usersController);
     app.use('/users/:userId/stats', statsController);
+
     app.use(errorController);
     return app;
 };

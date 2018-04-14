@@ -1,5 +1,5 @@
 'use strict';
-module.exports = (error, req, res, next) => {;
+module.exports = (error, req, res, next) => {
     if (!error.code) {
         error = {
             message: error.toString(),

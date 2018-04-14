@@ -15,7 +15,6 @@ module.exports = () => {
     }).catch((err) => {
         console.log('Unable to connect to database', err);
     });
-
     const Users = require('../models/users')(Sequelize, sequelize);
     const Statistics = require('../models/statistics')(Sequelize, sequelize);
     

@@ -31,7 +31,7 @@ class CrudService {
 
     async read(id) {
         id = parseInt(id);
-        if (isNaN(id)) throw this.errors.InvalidId;
+        if (isNaN(id)) throw this.errors.invalidId;
         const item = await this.repository.findById(id);
         if (!item) {
             throw this.errors.notFound;
@@ -55,7 +55,7 @@ class CrudService {
         return this.read(id);
     }
     async delete(id) {
-        return this.repository.destroy({
+        return await this.repository.destroy({
             where: {
                 id: id
             }
