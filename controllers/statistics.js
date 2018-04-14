@@ -5,13 +5,17 @@ class StatsController extends CrudController {
         super(service);
         this.registerRoutes();
     }
+    async readAll(req, res) {
+        req.query.userId = req.params.userId;
+        return super.readAll(req, res);
+    }
     async create(req, res) {
         req.body.userId = req.params.userId;
-        super.create(req, res);
+        return super.create(req, res);
     }
     async update(req, res) {
         req.body.userId = req.params.userId;
-        super.update(req, res);
+        return super.update(req, res);
     }
 }
 
