@@ -1,3 +1,4 @@
+"use strict";
 const db = require('./context')();
 const server = require('./server')(db);
 
@@ -6,5 +7,8 @@ const server = require('./server')(db);
         force: true
     });
     const port = 3030;
+    server.get('/', (req,res) => {
+        res.write('Hello World');
+    });
     server.listen(port, () => console.log(`Server is running on port ${port}`));
 })();

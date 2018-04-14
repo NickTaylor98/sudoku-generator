@@ -4,6 +4,14 @@ class StatsController extends CrudController {
         super(service);
         this.registerRoutes();
     }
+    async create(req, res) {
+        req.body.userId = req.params.userId;
+        super.create(req, res);
+    }
+    async update(req, res) {
+        req.body.userId = req.params.userId;
+        super.update(req, res);
+    }
 }
 
 module.exports = (statsService) => {

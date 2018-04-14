@@ -9,7 +9,8 @@ const stat = {
     mediumWins: Joi.number().positive(),
     mediumLoses: Joi.number().positive(),
     easyWins: Joi.number().positive(),
-    easyLoses: Joi.number().positive()
+    easyLoses: Joi.number().positive(),
+    userId : Joi.number().positive()
 }
 const schemas = {
     'user': Joi.object().keys(user),
