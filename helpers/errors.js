@@ -1,15 +1,4 @@
-/*const express = require('express');
-express.response.error = (error) => {
-    if (!error.code) {
-        error = {
-            message: error.toString(),
-            code: 'server_error',
-            status: 500
-        };
-    }
-    this.status(error.status).json(error);
-};
-*/
+'use strict';
 module.exports = {
     invalidId: {
         message: 'Invalid id',

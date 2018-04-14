@@ -1,3 +1,4 @@
+'use strict';
 const CrudService = require('./crud');
 const validator = require('../helpers/validator');
 class UserService extends CrudService {

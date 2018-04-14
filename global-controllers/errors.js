@@ -1,3 +1,4 @@
+'use strict';
 module.exports = (error, req, res, next) => {;
     if (!error.code) {
         error = {

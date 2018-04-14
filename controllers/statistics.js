@@ -1,3 +1,4 @@
+'use strict';
 const CrudController = require('./crud');
 class StatsController extends CrudController {
     constructor(service) {
