@@ -1,9 +1,10 @@
 const db = require('./context')();
-const express = require('express');
-const app = express();
+const server = require('./server')(db);
 
-(async function() {
-    await db.sequelize.sync();
+(async function () {
+    await db.sequelize.sync({
+        force: true
+    });
     const port = 3030;
-    app.listen(port, () => console.log(`Server is running on port ${port}`));
+    server.listen(port, () => console.log(`Server is running on port ${port}`));
 })();
