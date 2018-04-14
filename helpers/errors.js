@@ -24,5 +24,10 @@ module.exports = {
         message: 'Invalid data',
         code: 'invalid_data',
         status: 400
+    },
+    alreadyExists:{
+        message: 'Already exists',
+        code: 'already_exists',
+        status: 400
     }
 }
