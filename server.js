@@ -8,7 +8,8 @@ const errors = require('./helpers/errors');
 const UsersService = require('./services/users');
 const StatsService = require('./services/statistics');
 
-module.exports = (db) => {
+module.exports = (db) =>
+{
     const app = express();
     //services
     const usersService = new UsersService(

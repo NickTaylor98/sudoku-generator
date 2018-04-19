@@ -2,7 +2,7 @@
 module.exports = (error, req, res, next) => {
     if (!error.code) {
         error = {
-            message: error.toString(),
+            message: 'Server_error',
             code: 'server_error',
             status: 500
         };
