@@ -20,15 +20,19 @@ module.exports = (db) =>
         db.stats,
         errors
     );
+    
     //controllers
+    const authController = require('./global-controllers/authentication');
     const usersController = require('./controllers/users')(usersService);
     const statsController = require('./controllers/statistics')(statsService);
     const errorController = require('./global-controllers/errors');
     //Mounting
+    
     app.use(express.static('public'));
     app.use(cookieParser());
     app.use(bodyParser.json());
 
+    app.use('/*', authController);
     app.use('/users', usersController);
     app.use('/users/:userId/stats', statsController);
 
