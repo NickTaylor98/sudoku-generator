@@ -8,8 +8,7 @@ const errors = require('./helpers/errors');
 const UsersService = require('./services/users');
 const StatsService = require('./services/statistics');
 
-module.exports = (db) =>
-{
+module.exports = (db) => {
     const app = express();
     //services
     const usersService = new UsersService(
@@ -20,19 +19,22 @@ module.exports = (db) =>
         db.stats,
         errors
     );
-    
+
     //controllers
-    const authController = require('./global-controllers/authentication');
+    const authController = require('./global-controllers/authentication')(usersService);
     const usersController = require('./controllers/users')(usersService);
     const statsController = require('./controllers/statistics')(statsService);
     const errorController = require('./global-controllers/errors');
     //Mounting
-    
+
     app.use(express.static('public'));
     app.use(cookieParser());
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended : true}));
 
-    app.use('/*', authController);
+    app.use('/auth', authController.sign);
+    
+    app.use('/*', authController.verify);
     app.use('/users', usersController);
     app.use('/users/:userId/stats', statsController);
 
