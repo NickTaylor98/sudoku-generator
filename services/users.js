@@ -1,15 +1,23 @@
 'use strict';
 const CrudService = require('./crud');
 const validator = require('../helpers/validator');
+const bcrypt = require('bcryptjs');
 
 class UserService extends CrudService {
     constructor(rep, errors) {
         super(rep, errors);
     }
-
+    async readByLogin (login)
+    {
+        const item = await this.repository.findOne({where : {login : login}, raw : true});
+        if (!item) throw this.errors.notFound;
+        return item;
+    }
     async create(data) {
         const error = validator.check('user', data);
         if (error.error) throw this.errors.invalidData;
+        const password = await bcrypt.hash(data.password,10);
+        data.password = password;
         return super.create(data);
     }
 
