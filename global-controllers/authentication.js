@@ -7,10 +7,11 @@ const TOKEN_COOKIE = '__service_token';
 let service;
 
 async function verify(req, res, next) {
+    if (req.originalUrl === '/api/users' && req.method.toLowerCase() === 'post') return next();
     const token = req.cookies[TOKEN_COOKIE];
     const verificationValue = await jwt.verify(token);
     if (!verificationValue) {
-        res.cookie(`callback`, req.baseUrl);
+        res.cookie(`callback`, req.originalUrl);
         res.redirect(`/login.html`);
     } else {
         next();
