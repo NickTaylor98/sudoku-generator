@@ -22,8 +22,8 @@ module.exports = (db) => {
 
     //controllers
     const authController = require('./global-controllers/authentication')(usersService);
-    const usersController = require('./controllers/users')(usersService);
-    const statsController = require('./controllers/statistics')(statsService);
+   
+    const apiController = require('./controllers/api')(usersService, statsService);
     const errorController = require('./global-controllers/errors');
     //Mounting
 
@@ -32,12 +32,12 @@ module.exports = (db) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended : true}));
 
-    app.use('/auth', authController.sign);
     
-    app.use('/*', authController.verify);
-    app.use('/users', usersController);
-    app.use('/users/:userId/stats', statsController);
-
+    app.use('/auth', authController.sign);
+    app.use('/api', authController.verify, apiController);
     app.use(errorController);
+    //app.use('/users', usersController);
+    //app.use('/users/:userId/stats', statsController);
+
     return app;
 };
