@@ -1,5 +1,10 @@
 'use strict';
 module.exports = {
+    unauthorized: {
+        message: 'Unauthorized',
+        code: 'unauthorized',
+        status: 403
+    },
     invalidId: {
         message: 'Invalid id',
         code: 'invalid_id',
