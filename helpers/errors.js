@@ -25,6 +25,11 @@ module.exports = {
         code: 'invalid_data',
         status: 400
     },
+    invalidParams : {
+        message: 'Invalid params',
+        code: 'invalid_params',
+        status: 400
+    },
     alreadyExists:{
         message: 'Already exists',
         code: 'already_exists',
