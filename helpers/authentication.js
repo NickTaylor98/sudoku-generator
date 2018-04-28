@@ -18,6 +18,7 @@ async function signToken(id) {
     });
     return token;
 }
+
 module.exports = {
     verifyToken,
     signToken
