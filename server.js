@@ -21,8 +21,14 @@ module.exports = (db) => {
     );
 
     //controllers
-    const authController = require('./global-controllers/authentication')(usersService);
-   
+    const {
+        sign,
+        verify
+    } = require('./global-controllers/authentication')(usersService);
+    const {
+        ability
+    } = require('./global-controllers/authorization')(usersService);
+
     const apiController = require('./controllers/api')(usersService, statsService);
     const errorController = require('./global-controllers/errors');
     //Mounting
@@ -30,14 +36,14 @@ module.exports = (db) => {
     app.use(express.static('public'));
     app.use(cookieParser());
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended : true}));
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
 
-    
-    app.use('/auth', authController.sign);
-    app.use('/api', authController.verify, apiController);
+    app.use('/auth', sign);
+    app.use(ability);
+    app.use('/api', verify, apiController);
     app.use(errorController);
-    //app.use('/users', usersController);
-    //app.use('/users/:userId/stats', statsController);
 
     return app;
 };
