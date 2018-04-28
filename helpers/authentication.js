@@ -2,7 +2,7 @@
 const Promise = require('bluebird');
 const jwt = Promise.promisifyAll(require('jsonwebtoken'));
 const config = require('./config.json');
-async function verify(token) {
+async function verifyToken(token) {
     try {
         const user = await jwt.verifyAsync(token, config.key);
         return user;
@@ -10,7 +10,7 @@ async function verify(token) {
         return false;
     }
 }
-async function sign(id) {
+async function signToken(id) {
     const token = await jwt.signAsync({
         id: id
     }, config.key, {
@@ -19,6 +19,6 @@ async function sign(id) {
     return token;
 }
 module.exports = {
-    verify,
-    sign
+    verifyToken,
+    signToken
 }
