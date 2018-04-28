@@ -8,7 +8,8 @@ module.exports = () => {
         define: {
             timestamps: true,
             paranoid: true
-        }
+        },
+        logging : false
     });
     sequelize.authenticate().then(() => {
         console.log('Connection to database successful');
