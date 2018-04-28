@@ -5,13 +5,13 @@ const user = {
     password: Joi.string()
 };
 const stat = {
-    hardWins: Joi.number().positive(),
-    hardLoses: Joi.number().positive(),
-    mediumWins: Joi.number().positive(),
-    mediumLoses: Joi.number().positive(),
-    easyWins: Joi.number().positive(),
-    easyLoses: Joi.number().positive(),
-    userId : Joi.number().positive()
+    hardWins: Joi.number().min(0),
+    hardLoses: Joi.number().min(0),
+    mediumWins: Joi.number().min(0),
+    mediumLoses: Joi.number().min(0),
+    easyWins: Joi.number().min(0),
+    easyLoses: Joi.number().min(0),
+    userId : Joi.number().min(0)
 }
 const schemas = {
     'user': Joi.object().keys(user),
