@@ -24,6 +24,8 @@ class UserService extends CrudService {
     async update(id, data) {
         const error = validator.check('user', data);
         if (error.error) throw this.errors.invalidData;
+        const password = await bcrypt.hash(data.password,10);
+        data.password = password;
         return super.update(id, data);
     }
 
