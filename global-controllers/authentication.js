@@ -2,21 +2,29 @@
 
 const {
     verifyToken,
-    signToken
+    signToken,
+    decodeToken
 } = require('../helpers/authentication');
 const bcrypt = require('bcryptjs');
-const TOKEN_COOKIE = '__service_token';
-
+const ACCESS_TOKEN = '__service_token';
+const REFRESH_TOKEN = '__refresh_token';
 let service;
 
 async function verify(req, res, next) {
     if (req.method.toLowerCase() === 'post') return next();
-    const token = req.cookies[TOKEN_COOKIE];
-    const verificationValue = await verifyToken(token);
+    let accessToken = req.cookies[ACCESS_TOKEN];
+    const refreshToken = req.cookies[REFRESH_TOKEN];
+    let verificationValue = await verifyToken(accessToken);
     if (!verificationValue) {
-        res.redirect(`/login.html?callback=${req.originalUrl}`);
+        verificationValue = await verifyToken(refreshToken);
+        if (!verificationValue) {
+            res.redirect(`/login.html?callback=${req.originalUrl}`);
+        } else {
+            accessToken = await signToken(verificationValue.id, 30);
+            res.cookie(ACCESS_TOKEN, accessToken);
+            next();
+        }
     } else {
-        req.userId = verificationValue.id;
         next();
     }
 }
@@ -27,8 +35,10 @@ async function sign(req, res, next) {
         if (!isValidPassword) {
             throw service.errors.unauthorized;
         } else {
-            const token = await signToken(user.id);
-            res.cookie(TOKEN_COOKIE, token);
+            const accessToken = await signToken(user.id, 30);
+            const refreshToken = await signToken(user.id, 60 * 24 * 10); //10 days
+            res.cookie(ACCESS_TOKEN, accessToken);
+            res.cookie(REFRESH_TOKEN, refreshToken);
             res.redirect(req.body.callback);
         }
     } catch (e) {

@@ -2,6 +2,13 @@
     "db": "sudoku",
     "login": "root",
     "password": "root",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "options": {
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "define": {
+            "timestamps": true,
+            "paranoid": true
+        },
+        "logging": false
+    }
 }

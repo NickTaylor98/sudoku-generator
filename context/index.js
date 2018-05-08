@@ -1,16 +1,8 @@
 'use strict';
 const Sequelize = require('sequelize');
-const config = require('./config.json');
+const config = require('./config-postgres.json');
 module.exports = () => {
-    const sequelize = new Sequelize(config.db, config.login, config.password, {
-        host: config.host,
-        dialect: config.dialect,
-        define: {
-            timestamps: true,
-            paranoid: true
-        },
-        logging : false
-    });
+    const sequelize = new Sequelize(config.db, config.login, config.password, config.options);
     sequelize.authenticate().then(() => {
         console.log('Connection to database successful');
     }).catch((err) => {
@@ -20,6 +12,7 @@ module.exports = () => {
     const Statistics = require('../models/statistics')(Sequelize, sequelize);
     
     Users.hasOne(Statistics);
+    Statistics.belongsTo(Users);
 
     return {
         users : Users,

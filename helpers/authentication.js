@@ -10,16 +10,19 @@ async function verifyToken(token) {
         return false;
     }
 }
-async function signToken(id) {
+async function signToken(id, minutes) {
     const token = await jwt.signAsync({
         id: id
     }, config.key, {
-        expiresIn: 60 * 30
+        expiresIn: 60 * minutes
     });
     return token;
 }
-
+async function decodeToken(token) {
+    return await jwt.decodeAsync(token, config.key);
+}
 module.exports = {
     verifyToken,
-    signToken
+    signToken,
+    decodeToken
 }

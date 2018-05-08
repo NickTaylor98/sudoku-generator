@@ -1,0 +1,18 @@
+{
+    "db": "d8sna4dg5vu39s",
+    "login": "uuqcwbsxcdowsd",
+    "password": "1299a41a7d661cac52147da543ff6be3d4edfa2d83b08e3955bbc2fd4d4959be",
+    "options": {
+        "dialect": "postgres",
+        "host": "ec2-54-204-46-236.compute-1.amazonaws.com",
+        "port": 5432,
+        "define": {
+            "timestamps": true,
+            "paranoid": true
+        },
+        "logging": false,
+        "dialectOptions": {
+            "sst": true
+        }
+    }
+}

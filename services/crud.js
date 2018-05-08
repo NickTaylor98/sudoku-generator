@@ -20,6 +20,7 @@ class CrudService {
         offset = parseInt(offset);
         if (isNaN(limit) || isNaN(offset)) throw this.errors.invalidParams; 
         return await this.repository.findAll({
+            attributes : options.attributes,
             limit: limit,
             offset: offset,
             order: [
