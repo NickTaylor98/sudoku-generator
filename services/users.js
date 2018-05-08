@@ -12,6 +12,14 @@ class UserService extends CrudService {
         options.attributes = ['id', 'login'];
         return super.readChunk(options);
     }
+    async read(id)
+    {
+        const user = await super.read(id);
+        return {
+            id: user.id, 
+            login: user.login
+        };
+    }
     async readByLogin (login)
     {
         const item = await this.repository.findOne({where : {login : login}, raw : true});
