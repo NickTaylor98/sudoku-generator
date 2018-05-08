@@ -23,7 +23,8 @@ module.exports = (db) => {
     //controllers
     const {
         sign,
-        verify
+        verify,
+        logout
     } = require('./global-controllers/authentication')(usersService);
     const {
         ability
@@ -40,6 +41,7 @@ module.exports = (db) => {
         extended: true
     }));
 
+    app.use('/logout', logout);
     app.use('/auth', sign);
     app.use(ability);
     app.use('/api', verify, apiController);

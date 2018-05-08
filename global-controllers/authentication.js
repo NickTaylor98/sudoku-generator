@@ -46,10 +46,21 @@ async function sign(req, res, next) {
     }
 }
 
+async function logout(req, res, next) {
+    if (req.method.toUpperCase() == 'POST') {
+        res.cookie(ACCESS_TOKEN, "");
+        res.cookie(REFRESH_TOKEN, "");
+        res.redirect("/login.html");
+    } else {
+        next();
+    }
+}
+
 module.exports = (userService) => {
     service = userService;
     return {
         verify,
-        sign
+        sign,
+        logout
     };
 }
