@@ -18,11 +18,8 @@ async function signToken(id, minutes) {
     });
     return token;
 }
-async function decodeToken(token) {
-    return await jwt.decodeAsync(token, config.key);
-}
+
 module.exports = {
     verifyToken,
-    signToken,
-    decodeToken
+    signToken
 }
