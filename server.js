@@ -38,6 +38,7 @@ module.exports = (db) => {
     //Mounting
 
     app.use(express.static('public/scripts'));
+    app.use(express.static('public/css'));
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({

@@ -15,10 +15,10 @@ async function redirect(req, res, next) {
         if (verificationValue) res.sendFile(`${BASIC_PATH}/index.html`);
         else res.redirect(`/login.html`);
     } else if (req.path === '/login.html') {
-        if (verificationValue) res.redirect(`/index.html`);
+        if (verificationValue) res.redirect(`/`);
         else res.sendFile(`${BASIC_PATH}/login.html`);
     } else if (req.path === '/signup.html') {
-        if (verificationValue) res.redirect(`/index.html`);
+        if (verificationValue) res.redirect(`/`);
         else res.sendFile(`${BASIC_PATH}/signup.html`);
     }
 }
