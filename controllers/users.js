@@ -30,7 +30,7 @@ class UsersController extends CrudController {
         let [message, status] = ["", 200];
         if (checkValue.access) {
             let data = await this.service.create(req.body);
-            //let resp = await axios.post(`http://localhost:3030/api/users/${data.id}/stats`, defaultStats);
+            let resp = await axios.post(`http://localhost:${req.connection.localPort}/api/users/${data.id}/stats`, defaultStats);
             message = data;
         } else {
             message = checkValue.error.message;
