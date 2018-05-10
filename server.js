@@ -31,10 +31,13 @@ module.exports = (db) => {
     } = require('./global-controllers/authorization')(usersService);
 
     const apiController = require('./controllers/api')(usersService, statsService);
+    const {
+        redirect
+    } = require('./global-controllers/pages')();
     const errorController = require('./global-controllers/errors');
     //Mounting
 
-    app.use(express.static('public'));
+    app.use(express.static('public/scripts'));
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -45,6 +48,7 @@ module.exports = (db) => {
     app.use('/auth', sign);
     app.use(ability);
     app.use('/api', verify, apiController);
+    app.use(redirect);
     app.use(errorController);
 
     return app;
