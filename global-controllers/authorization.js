@@ -8,7 +8,6 @@ const {
 } = require('../helpers/authentication');
 let service;
 const TOKEN_COOKIE = '__service_token';
-
 async function ability(req, res, next) {
 
     const {
@@ -36,10 +35,13 @@ async function ability(req, res, next) {
         can('delete', 'users', {
             login: user.login
         });
-        can('manage', 'stats', {
+        can('read', 'stats');
+        can('update', 'stats', {
             userId: user.id
         });
-        cannot('create', 'stats');
+        can('delete', 'stats', {
+            userId: user.id
+        });
     }
     req.ability = new Ability(rules);
     next();
