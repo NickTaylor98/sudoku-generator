@@ -6,12 +6,31 @@ const {
 class StatsController extends CrudController {
     constructor(service) {
         super(service);
+        this.routes = {
+            '/': [{
+                    method: 'post',
+                    cb: this.create
+                },
+                {
+                    method: 'get',
+                    cb: this.read
+                },
+                {
+                    method: 'put',
+                    cb: this.update
+                },
+                {
+                    method: 'delete',
+                    cb: this.delete
+                }
+            ]
+        };
         this.registerRoutes();
     }
-    async readAll(req, res) {
-        req.query.userId = req.params.userId;
+    async read(req, res) {
+        req.params.id = req.params.userId;
         const checkValue = await checkAuth(req.ability, 'read', 'stats');
-        return checkValue.access ? super.readAll(req, res) : checkValue.error.message;
+        return checkValue.access ? super.read(req, res) : checkValue.error.message;
     }
     async create(req, res) {
         req.body.userId = req.params.userId;
@@ -20,7 +39,7 @@ class StatsController extends CrudController {
     }
     async update(req, res) {
         req.body.userId = req.params.userId;
-        const stat = this.service.read(req.params.id);
+        const stat = await this.service.read(req.params.id);
         const checkValue = await checkAuth(req.ability, 'update', stat);
         return super.update(req, res);
     }
