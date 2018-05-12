@@ -9,7 +9,7 @@ const REFRESH_TOKEN = '__refresh_token';
 const BASIC_PATH = path.resolve(__dirname, `../public/html/`);
 
 async function redirect(req, res, next) {
-    const accessToken = req.cookies[REFRESH_TOKEN];
+    const accessToken = req.cookies[ACCESS_TOKEN];
     let verificationValue = await verifyToken(accessToken);
     if (req.path === '/index.html' || req.path == '/') {
         if (verificationValue) res.sendFile(`${BASIC_PATH}/index.html`);
@@ -20,7 +20,7 @@ async function redirect(req, res, next) {
     }
 }
 
-module.exports = () => {
+module.exports = (userService) => {
     return {
         redirect
     }

@@ -38,7 +38,10 @@ async function sign(req, res, next) {
             const refreshToken = await signToken(user.id, 60 * 24 * 10); //10 days
             res.cookie(ACCESS_TOKEN, accessToken);
             res.cookie(REFRESH_TOKEN, refreshToken);
-            res.redirect(req.body.callback || '/');
+            //res.redirect(req.body.callback || '/');
+            res.json({
+                redirect: (req.body.callback || '/')
+            });
         }
     } catch (e) {
         return next(e);

@@ -7,7 +7,10 @@ const {
     verifyToken
 } = require('../helpers/authentication');
 let service;
+
 const TOKEN_COOKIE = '__service_token';
+const REFRESH_COOKIE = '__refresh_token';
+
 async function ability(req, res, next) {
 
     const {
@@ -17,31 +20,34 @@ async function ability(req, res, next) {
     } = AbilityBuilder.extract();
 
     let user = await verifyToken(req.cookies[TOKEN_COOKIE]);
-    const role = user ? 'member' : 'anon';
+    let role = user ? 'member' : 'anon';
     try {
         user = (role === 'anon') ? "anon" : await service.read(user.id);
     } catch (e) {
-        return next(e);
-    }
-    if (role === 'anon') {
-        can('create', 'users');
-        can('create', 'stats');
-    }
-    if (role === 'member') {
-        can('read', 'users');
-        can('update', 'users', {
-            login: user.login
-        });
-        can('delete', 'users', {
-            login: user.login
-        });
-        can('read', 'stats');
-        can('update', 'stats', {
-            userId: user.id
-        });
-        can('delete', 'stats', {
-            userId: user.id
-        });
+        req.cookies[TOKEN_COOKIE] = "";
+        req.cookies[REFRESH_COOKIE] = "";
+        role = 'anon';
+    } finally {
+        if (role === 'anon') {
+            can('create', 'users');
+            can('create', 'statistics');
+        }
+        if (role === 'member') {
+            can('read', 'users');
+            can('update', 'users', {
+                login: user.login
+            });
+            can('delete', 'users', {
+                login: user.login
+            });
+            can('read', 'statistics');
+            can('update', 'statistics', {
+                userId: user.id
+            });
+            can('delete', 'statistics', {
+                userId: user.id
+            });
+        }
     }
     req.ability = new Ability(rules);
     next();
