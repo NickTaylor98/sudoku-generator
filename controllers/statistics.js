@@ -29,19 +29,19 @@ class StatsController extends CrudController {
     }
     async read(req, res) {
         req.params.id = req.params.userId;
-        const checkValue = await checkAuth(req.ability, 'read', 'stats');
+        const checkValue = await checkAuth(req.ability, 'read', 'statistics');
         return checkValue.access ? super.read(req, res) : checkValue.error.message;
     }
     async create(req, res) {
         req.body.userId = req.params.userId;
-        const checkValue = await checkAuth(req.ability, 'create', 'stats');
+        const checkValue = await checkAuth(req.ability, 'create', 'statistics');
         return super.create(req, res);
     }
     async update(req, res) {
-        req.body.userId = req.params.userId;
-        const stat = await this.service.read(req.params.id);
+        req.body.userId = req.body.id = req.params.userId;
+        const stat = await this.service.read(req.params.userId);
         const checkValue = await checkAuth(req.ability, 'update', stat);
-        return super.update(req, res);
+        return checkValue.access ? super.update(req, res) : checkValue.error.message;
     }
 }
 
