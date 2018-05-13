@@ -10,13 +10,36 @@ module.exports = () => {
     });
     const Users = require('../models/users')(Sequelize, sequelize);
     const Statistics = require('../models/statistics')(Sequelize, sequelize);
-    
+
     Users.hasOne(Statistics);
     Statistics.belongsTo(Users);
 
+    Statistics.findAllWithSort = async () => {
+        return await Statistics.findAll({
+            attributes: [
+                'hardWins', 'hardLoses', 'mediumWins',
+                'mediumLoses', 'easyWins', 'easyLoses'
+            ],
+            include: [{
+                model: Users,
+                required: true,
+                attributes: ['login'],
+                raw: true
+            }],
+            raw: true,
+            order: [
+                ['hardWins', 'DESC'],
+                ['mediumWins', 'DESC'],
+                ['easyWins', 'DESC'],
+                ['hardLoses', 'DESC'],
+                ['mediumLoses', 'DESC'],
+                ['easyLoses', 'DESC'],
+            ]
+        });
+    }
     return {
-        users : Users,
-        stats : Statistics,
+        users: Users,
+        stats: Statistics,
         sequelize: sequelize,
         Sequelize: Sequelize
     };
