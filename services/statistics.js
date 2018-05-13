@@ -1,15 +1,14 @@
 'use strict';
 const CrudService = require('./crud');
 const validator = require('../helpers/validator');
-
 class StatService extends CrudService {
     constructor(rep, errors) {
         super(rep, errors);
     }
 
     async readChunk(opts) {
-        let stats = await super.readChunk(opts);
-        return stats.filter(elem => (elem.userId == opts.userId));
+        let stats = await this.repository.findAllWithSort();
+        return stats;
     }
 
     async create(data) {
