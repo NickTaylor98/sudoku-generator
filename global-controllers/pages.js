@@ -25,7 +25,11 @@ async function redirect(req, res, next) {
             res.cookie(ACCESS_TOKEN, accessToken);
             res.redirect('/');
         }
-    } else res.sendFile(`${BASIC_PATH}/index.html`);
+    } else {
+        if (req.path === '/index.html' || req.path === '/')
+            res.sendFile(`${BASIC_PATH}/index.html`);
+        else res.redirect('/');
+    }
 }
 
 module.exports = () => {
