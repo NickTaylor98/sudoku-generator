@@ -37,15 +37,16 @@ module.exports = (db) => {
     const errorController = require('./global-controllers/errors');
     //Mounting
 
-    app.use(express.static('public/scripts'));
-    app.use(express.static('public/css'));
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
 
-    app.use('/logout', logout);
+    app.use(express.static('public/scripts'));
+    app.use(express.static('public/css'));
+
+    app.post('/logout', logout);
     app.use('/auth', sign);
     app.use(ability);
     app.use('/api', verify, apiController);
