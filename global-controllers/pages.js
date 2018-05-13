@@ -10,17 +10,25 @@ const BASIC_PATH = path.resolve(__dirname, `../public/html/`);
 
 async function redirect(req, res, next) {
     const accessToken = req.cookies[ACCESS_TOKEN];
+    const refreshToken = req.cookies[REFRESH_TOKEN];
     let verificationValue = await verifyToken(accessToken);
-    if (req.path === '/index.html' || req.path == '/') {
-        if (verificationValue) res.sendFile(`${BASIC_PATH}/index.html`);
-        else res.redirect(`/login.html`);
-    } else if (req.path === '/login.html' || req.path === '/signup.html') {
-        if (verificationValue) res.redirect(`/`);
-        else res.sendFile(`${BASIC_PATH}${req.path}`);
-    }
+    if (!verificationValue) {
+        verificationValue = await verifyToken(refreshToken);
+        if (!verificationValue) {
+            if (req.path === '/index.html' || req.path == '/') {
+                res.redirect(`/login.html`);
+            } else if (req.path === '/login.html' || req.path === '/signup.html') {
+                res.sendFile(`${BASIC_PATH}${req.path}`);
+            }
+        } else {
+            accessToken = await signToken(verificationValue.id, 30);
+            res.cookie(ACCESS_TOKEN, accessToken);
+            res.redirect('/');
+        }
+    } else res.sendFile(`${BASIC_PATH}/index.html`);
 }
 
-module.exports = (userService) => {
+module.exports = () => {
     return {
         redirect
     }

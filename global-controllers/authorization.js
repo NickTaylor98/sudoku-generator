@@ -20,9 +20,20 @@ async function ability(req, res, next) {
     } = AbilityBuilder.extract();
 
     let user = await verifyToken(req.cookies[TOKEN_COOKIE]);
-    let role = user ? 'member' : 'anon';
+    let role;
     try {
-        user = (role === 'anon') ? "anon" : await service.read(user.id);
+        if (!user) {
+            user = await verifyToken(req.cookies[REFRESH_COOKIE]);
+            if (!user) {
+                role = 'anon';
+            } else {
+                user = await service.read(user.id);
+                role = 'member';
+            }
+        } else {
+            user = await service.read(user.id);
+            role = 'member';
+        }
     } catch (e) {
         req.cookies[TOKEN_COOKIE] = "";
         req.cookies[REFRESH_COOKIE] = "";
@@ -31,8 +42,7 @@ async function ability(req, res, next) {
         if (role === 'anon') {
             can('create', 'users');
             can('create', 'statistics');
-        }
-        if (role === 'member') {
+        } else if (role === 'member') {
             can('read', 'users');
             can('update', 'users', {
                 login: user.login
