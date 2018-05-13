@@ -49,13 +49,9 @@ async function sign(req, res, next) {
 }
 
 async function logout(req, res, next) {
-    if (req.method.toUpperCase() == 'POST') {
-        res.cookie(ACCESS_TOKEN, "");
-        res.cookie(REFRESH_TOKEN, "");
-        res.redirect("/login.html");
-    } else {
-        next();
-    }
+    res.cookie(ACCESS_TOKEN, "");
+    res.cookie(REFRESH_TOKEN, "");
+    res.redirect("/login.html");
 }
 
 module.exports = (userService) => {
