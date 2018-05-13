@@ -9,7 +9,7 @@ const REFRESH_TOKEN = '__refresh_token';
 const BASIC_PATH = path.resolve(__dirname, `../public/html/`);
 
 async function redirect(req, res, next) {
-    const accessToken = req.cookies[ACCESS_TOKEN];
+    let accessToken = req.cookies[ACCESS_TOKEN];
     const refreshToken = req.cookies[REFRESH_TOKEN];
     let verificationValue = await verifyToken(accessToken);
     if (!verificationValue) {
