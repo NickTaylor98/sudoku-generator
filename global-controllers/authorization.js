@@ -37,6 +37,8 @@ async function ability(req, res, next) {
     } catch (e) {
         req.cookies[TOKEN_COOKIE] = "";
         req.cookies[REFRESH_COOKIE] = "";
+        res.cookie(TOKEN_COOKIE, "");
+        res.cookie(REFRESH_COOKIE, "");
         role = 'anon';
     } finally {
         if (role === 'anon') {
