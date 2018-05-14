@@ -8,11 +8,11 @@ body {
 	margin: 0 auto;
 	text-align: center;
 }
-
+/*
 #board {
 	display: inline-block;
 }
-
+*/
 table {
 	margin-top: 20px;
 	border-collapse: collapse;

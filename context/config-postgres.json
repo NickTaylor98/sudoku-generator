@@ -7,7 +7,7 @@
         "host": "ec2-54-204-46-236.compute-1.amazonaws.com",
         "port": 5432,
         "define": {
-            "timestamps": true,
+            "timestamps": false,
             "paranoid": true
         },
         "logging": false,
