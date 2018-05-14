@@ -29,11 +29,11 @@ module.exports = () => {
             raw: true,
             order: [
                 ['hardWins', 'DESC'],
+                ['easyLoses', 'ASC'],
                 ['mediumWins', 'DESC'],
+                ['mediumLoses', 'ASC'],
                 ['easyWins', 'DESC'],
-                ['hardLoses', 'DESC'],
-                ['mediumLoses', 'DESC'],
-                ['easyLoses', 'DESC'],
+                ['hardLoses', 'ASC'],
             ]
         });
     }
