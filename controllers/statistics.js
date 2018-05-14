@@ -38,7 +38,7 @@ class StatsController extends CrudController {
         return super.create(req, res);
     }
     async update(req, res) {
-        req.body.userId = req.body.id = req.params.userId;
+        req.body.userId = req.params.id = req.params.userId;
         const stat = await this.service.read(req.params.userId);
         const checkValue = await checkAuth(req.ability, 'update', stat);
         return checkValue.access ? super.update(req, res) : checkValue.error.message;
