@@ -28,8 +28,8 @@ module.exports = () => {
             }],
             raw: true,
             order: [
-                ['hardWins', 'DESC'],
                 ['easyLoses', 'ASC'],
+                ['hardWins', 'DESC'],
                 ['mediumWins', 'DESC'],
                 ['mediumLoses', 'ASC'],
                 ['easyWins', 'DESC'],
