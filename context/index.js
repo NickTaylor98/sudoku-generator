@@ -18,7 +18,10 @@ module.exports = () => {
         return await Statistics.findAll({
             attributes: [
                 'hardWins', 'hardLoses', 'mediumWins',
-                'mediumLoses', 'easyWins', 'easyLoses'
+                'mediumLoses', 'easyWins', 'easyLoses', 
+                [sequelize.literal(`(hardWins - easyLoses) * 3 +
+                                    (mediumWins - mediumLoses) * 2 +
+                                    (easyWins - hardLoses)`), 'rating']
             ],
             include: [{
                 model: Users,
@@ -28,7 +31,9 @@ module.exports = () => {
             }],
             raw: true,
             order: [
-                ['rating', 'DESC']
+                [sequelize.literal(`(hardWins - easyLoses) * 3 +
+                                    (mediumWins - mediumLoses) * 2 +
+                                    (easyWins - hardLoses)`), 'DESC']
             ]
         });
     }
