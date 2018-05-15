@@ -15,11 +15,12 @@ module.exports = () => {
     Statistics.belongsTo(Users);
 
     Statistics.findAllWithSort = async () => {
+        const query = `(statistics."hardWins" - statistics."easyLoses") * 3 + (statistics."mediumWins" - statistics."mediumLoses") * 2 + (statistics."easyWins" - statistics."hardLoses")`;
         return await Statistics.findAll({
             attributes: [
                 'hardWins', 'hardLoses', 'mediumWins',
                 'mediumLoses', 'easyWins', 'easyLoses', 
-                [sequelize.literal(`(statistics.hardWins - statistics.easyLoses) * 3 + (statistics.mediumWins - statistics.mediumLoses) * 2 + (statistics.easyWins - statistics.hardLoses)`), 'rating']
+                [sequelize.literal(query), 'rating']
             ],
             include: [{
                 model: Users,
@@ -29,7 +30,7 @@ module.exports = () => {
             }],
             raw: true,
             order: [
-                [sequelize.literal(`(statistics.hardWins - statistics.easyLoses) * 3 + (statistics.mediumWins - statistics.mediumLoses) * 2 + (statistics.easyWins - statistics.hardLoses)`), 'DESC']
+                [sequelize.literal(query), 'DESC']
             ]
         });
     }
