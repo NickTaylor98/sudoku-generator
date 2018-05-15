@@ -1,6 +1,6 @@
 'use strict';
 const Sequelize = require('sequelize');
-const config = require('./config.json');
+const config = require('./config-postgres.json');
 module.exports = () => {
     const sequelize = new Sequelize(config.db, config.login, config.password, config.options);
     sequelize.authenticate().then(() => {
