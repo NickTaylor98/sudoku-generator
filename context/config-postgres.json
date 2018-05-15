@@ -10,7 +10,7 @@
             "timestamps": false,
             "paranoid": true
         },
-        "logging": false,
+        "logging": true,
         "dialectOptions": {
             "sst": true
         }
