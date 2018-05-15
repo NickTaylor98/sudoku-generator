@@ -24,5 +24,11 @@ module.exports = (Sequelize, sequelize) => {
         easyLoses: {
             type: Sequelize.INTEGER
         }
+    }, {
+        getterMethods: {
+            rating: function () {
+                return (this.hardWins - this.easyLoses) * 3 + (this.mediumWins - this.mediumLoses) * 2 + (this.easyWins - this.hardLoses);
+            }
+        }
     });
 }
