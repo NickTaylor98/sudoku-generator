@@ -15,11 +15,9 @@ async function redirect(req, res, next) {
     if (!verificationValue) {
         verificationValue = await verifyToken(refreshToken);
         if (!verificationValue) {
-            if (req.path === '/index.html' || req.path == '/') {
-                res.redirect(`/login.html`);
-            } else if (req.path === '/login.html' || req.path === '/signup.html') {
+            if (req.path === '/login.html' || req.path === '/signup.html') {
                 res.sendFile(`${BASIC_PATH}${req.path}`);
-            }
+            } else res.redirect(`/login.html`);
         } else {
             accessToken = await signToken(verificationValue.id, 30);
             res.cookie(ACCESS_TOKEN, accessToken);
