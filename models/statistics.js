@@ -27,7 +27,9 @@ module.exports = (Sequelize, sequelize) => {
     }, {
         getterMethods: {
             rating: function () {
-                return (this.hardWins - this.easyLoses) * 3 + (this.mediumWins - this.mediumLoses) * 2 + (this.easyWins - this.hardLoses);
+                return ((this.hardWins - this.easyLoses) * 3 +
+                    (this.mediumWins - this.mediumLoses) * 2 +
+                    (this.easyWins - this.hardLoses));
             }
         }
     });
