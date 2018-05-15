@@ -1,6 +1,6 @@
 'use strict';
 const Sequelize = require('sequelize');
-const config = require('./config-postgres.json');
+const config = require('./config.json');
 module.exports = () => {
     const sequelize = new Sequelize(config.db, config.login, config.password, config.options);
     sequelize.authenticate().then(() => {
@@ -28,12 +28,7 @@ module.exports = () => {
             }],
             raw: true,
             order: [
-                ['easyLoses', 'ASC'],
-                ['hardWins', 'DESC'],
-                ['mediumWins', 'DESC'],
-                ['mediumLoses', 'ASC'],
-                ['easyWins', 'DESC'],
-                ['hardLoses', 'ASC'],
+                ['rating', 'DESC']
             ]
         });
     }
