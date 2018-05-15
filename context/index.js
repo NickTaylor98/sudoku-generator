@@ -19,9 +19,7 @@ module.exports = () => {
             attributes: [
                 'hardWins', 'hardLoses', 'mediumWins',
                 'mediumLoses', 'easyWins', 'easyLoses', 
-                [sequelize.literal(`(hardWins - easyLoses) * 3 +
-                                    (mediumWins - mediumLoses) * 2 +
-                                    (easyWins - hardLoses)`), 'rating']
+                [sequelize.literal(`(statistics.hardWins - statistics.easyLoses) * 3 + (statistics.mediumWins - statistics.mediumLoses) * 2 + (statistics.easyWins - statistics.hardLoses)`), 'rating']
             ],
             include: [{
                 model: Users,
@@ -31,9 +29,7 @@ module.exports = () => {
             }],
             raw: true,
             order: [
-                [sequelize.literal(`(hardWins - easyLoses) * 3 +
-                                    (mediumWins - mediumLoses) * 2 +
-                                    (easyWins - hardLoses)`), 'DESC']
+                [sequelize.literal(`(statistics.hardWins - statistics.easyLoses) * 3 + (statistics.mediumWins - statistics.mediumLoses) * 2 + (statistics.easyWins - statistics.hardLoses)`), 'DESC']
             ]
         });
     }
