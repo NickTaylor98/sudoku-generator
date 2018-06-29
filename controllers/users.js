@@ -45,9 +45,9 @@ class UsersController extends CrudController {
         }
     }
     /**
-     * @api {get} /users/:userID List one user
+     * @api {get} /users/:userID Show information about one user
      * @apiGroup Users
-     * @apiParam {userID} id User identifier
+     * @apiParam {Number} id User identifier
      * @apiSuccess {Number} users.id User id
      * @apiSuccess {String} users.login User login
      * @apiSuccessExample {json} Success
@@ -64,8 +64,8 @@ class UsersController extends CrudController {
     /**
      * @api {post} /users Create new user
      * @apiGroup Users
-     * @apiParam {login} login User login
-     * @apiParam {password} password User password
+     * @apiParam {String} login User login
+     * @apiParam {String} password User password
      * @apiSuccess {Number} id User id
      * @apiSuccess {String} login User login
      * @apiSuccess {String} password User password
@@ -95,9 +95,9 @@ class UsersController extends CrudController {
     /**
      * @api {put} /users/:userID Update user
      * @apiGroup Users
-     * @apiParam {userID} id User identifier
-     * @apiParam {login} login User login
-     * @apiParam {password} password User password
+     * @apiParam {Number} id User identifier
+     * @apiParam {String} login User login
+     * @apiParam {String} password User password
      * @apiSuccess {Number} id User id
      * @apiSuccess {String} login User login
      * @apiSuccess {String} password User password
@@ -122,7 +122,7 @@ class UsersController extends CrudController {
     /**
      * @api {delete} /users/:userID Delete user
      * @apiGroup Users
-     * @apiParam {userID} id User identifier
+     * @apiParam {Number} id User identifier
      * @apiSuccess {Number} success Success value
      * @apiSuccessExample {json} Success
      *    HTTP/1.1 200 OK

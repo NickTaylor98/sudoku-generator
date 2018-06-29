@@ -31,7 +31,7 @@ class StatsController extends CrudController {
     /**
      * @api {get} /users/:userID/stats List user statistic
      * @apiGroup Stats
-     * @apiParam {userID} id User identifier
+     * @apiParam {Number} id User identifier
      * @apiSuccess {Number} stats.id Stats id
      * @apiSuccess {Number} stats.hardWins Quantity of wins hard level sudoku
      * @apiSuccess {Number} stats.mediumWins Quantity of wins medium level sudoku

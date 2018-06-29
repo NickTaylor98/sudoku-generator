@@ -1,4 +1,5 @@
 'use strict';
+
 class CrudService {
     constructor(rep, errors) {
         this.repository = rep;
@@ -12,15 +13,17 @@ class CrudService {
             }
         }
     }
-
     async readChunk(options) {
         const opts = Object.assign({}, this.default.options, options);
-        let {limit, offset} = opts;
+        let {
+            limit,
+            offset
+        } = opts;
         limit = parseInt(limit);
         offset = parseInt(offset);
-        if (isNaN(limit) || isNaN(offset)) throw this.errors.invalidParams; 
+        if (isNaN(limit) || isNaN(offset)) throw this.errors.invalidParams;
         return await this.repository.findAll({
-            attributes : options.attributes,
+            attributes: options.attributes,
             limit: limit,
             offset: offset,
             order: [
@@ -42,6 +45,7 @@ class CrudService {
         }
         return item;
     }
+
 
     async create(data) {
         const item = await this.repository.create(data);

@@ -21,7 +21,11 @@
     "sequelize": "^4.37.6"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "apidoc": "npx apidoc controllers/ -o doc/ -e node_modules"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
+  }
 }

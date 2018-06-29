@@ -1,6 +1,6 @@
 'use strict';
 const Sequelize = require('sequelize');
-const config = require('./config-postgres.json');
+const config = require('./config.json');
 module.exports = () => {
     const sequelize = new Sequelize(config.db, config.login, config.password, config.options);
     sequelize.authenticate().then(() => {
@@ -15,7 +15,8 @@ module.exports = () => {
     Statistics.belongsTo(Users);
 
     Statistics.findAllWithSort = async () => {
-        const query = `(statistics."hardWins" - statistics."easyLoses") * 3 + (statistics."mediumWins" - statistics."mediumLoses") * 2 + (statistics."easyWins" - statistics."hardLoses")`;
+        let query = `(statistics."hardWins" - statistics."easyLoses") * 3 + (statistics."mediumWins" - statistics."mediumLoses") * 2 + (statistics."easyWins" - statistics."hardLoses")`;
+        if (config.options.dialect === 'mysql') query = `(hardWins - easyLoses) * 3 + (mediumWins - mediumLoses) * 2 + (easyWins - hardLoses)`;
         return await Statistics.findAll({
             attributes: [
                 'hardWins', 'hardLoses', 'mediumWins',
